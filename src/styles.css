@@ -78,7 +78,10 @@ h1,
 .overcast,
 .wind,
 .min-temperature,
-.block-2,
+.block-2 {
+  display-block;
+  padding: 6px;
+}
 .search {
   color: #1f2b4e;
   font-weight: bold;

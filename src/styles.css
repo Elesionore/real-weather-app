@@ -29,9 +29,12 @@ body {
   background-color: #2c8a30;
   border-color: #13411dce;
 }
+
 .block-2.row {
   width: 800px;
+  margin: 20px auto;
 }
+
 .col {
   padding: 0px;
   border: 1px solid #050505;

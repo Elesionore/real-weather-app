@@ -1,10 +1,10 @@
 body {
   font-family: "ComicSans", sans-serif;
-  background: radial-gradient(
-    circle at 10% 20%,
-    rgb(166, 226, 229) 0%,
-    rgb(198, 232, 221) 100.2%
-  );
+    background-image: url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwifflegif.com%2Ftags%2F3012-sky-gifs%3Fpage%3D7&psig=AOvVaw0IKidwmgyKGj4Sa8uOSN6r&ust=1667421325794000&source=images&cd=vfe&ved=0CA0QjRxqFwoTCNDEntDqjfsCFQAAAAAdAAAAABAd');
+    background-size: cover;
+    height: 100vh;
+    padding:0;
+    margin:0;
 }
 .weather {
   max-width: 800px;

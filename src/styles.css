@@ -29,8 +29,8 @@ body {
   background-color: #2c8a30;
   border-color: #13411dce;
 }
-.block-2 {
-  width: 569px;
+.block-2.row {
+  width: 800px;
 }
 .col {
   padding: 0px;

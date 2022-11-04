@@ -13,7 +13,7 @@ function formatDate(date) {
     "September",
     "October",
     "November",
-    "December"
+    "December",
   ];
   let month = months[currentMonth];
   let year = date.getFullYear();
@@ -39,7 +39,7 @@ function formatHours(date) {
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday"
+    "Saturday",
   ];
   let day = days[dayIndex];
 
@@ -98,6 +98,12 @@ function showTemperature(response) {
   );
   document.querySelector("#description").innerHTML =
     response.data.weather[0].description;
+
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
 }
 function searchLocation(position) {
   let apiKey = "ab6174be7b717732ef179b1d3f3555cf";

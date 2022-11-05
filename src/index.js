@@ -46,6 +46,45 @@ function formatHours(date) {
   return `${day} ${hours}:${minutes}`;
 }
 
+function displayForecast(response) {
+  console.log(response.data.daily);
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Thu", "Fri", "Sat", "Sun"];
+
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+        <div class="col-2">
+          <div class="weather-forecast-date">${day}</div>
+          <img 
+            src="https://ssl.gstatic.com/onebox/weather/48/rain_s_cloudy.png" 
+            alt="rainy" 
+            width="42"
+          />
+          <div class="weather-forecast-temperatures">
+            <span class="weather-forecast-temperature-max"> 18º 
+            </span>
+            <span class="weather-forecast-temperature-min"> 12º 
+            </span>
+          </div>
+        </div>
+    `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "ab6174be7b717732ef179b1d3f3555cf";
+  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function handleSubmit(event) {
   event.preventDefault();
   let cityInput = document.querySelector("#city-input").value;
@@ -104,10 +143,13 @@ function showTemperature(response) {
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
+
+  getForecast(response.data.coord);
 }
+
 function searchLocation(position) {
   let apiKey = "ab6174be7b717732ef179b1d3f3555cf";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/3.0/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(showTemperature);
 }
 
@@ -127,12 +169,16 @@ function convertToFahrenheit(event) {
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = Math.round(celsiusTemperature * 1.8 + 32);
 }
+
 let celsiusTemperature = null;
+
 let dateElement = document.querySelector("#current-date");
+
 let currentDate = new Date();
 dateElement.innerHTML = formatDate(currentDate);
 
 let timeElement = document.querySelector("#current-time");
+
 let currentTime = new Date();
 timeElement.innerHTML = formatHours(currentTime);
 
@@ -144,6 +190,7 @@ currentLocationButton.addEventListener("click", getCurrentPosition);
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", convertToFahrenheit);
+
 let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", convertToCelsius);
 
@@ -158,6 +205,7 @@ romeButton.addEventListener("click", chooseRome);
 
 let madridButton = document.querySelector("#madrid-button");
 madridButton.addEventListener("click", chooseMadrid);
+
 let berlinButton = document.querySelector("#berlin-button");
 berlinButton.addEventListener("click", chooseBerlin);
 

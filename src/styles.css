@@ -143,3 +143,8 @@ h1 {
 .min-temperature {
   line-height: 0;
 }
+
+small {
+  text-align: center;
+  color: darkolivegreen;
+}

@@ -42,7 +42,30 @@ function formatHours(date) {
     "Saturday",
   ];
   let day = days[dayIndex];
+  return `${day} ${hours}:${minutes}`;
+}
 
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[date.getDay()];
   return `${day} ${hours}:${minutes}`;
 }
 
@@ -53,21 +76,27 @@ function displayForecast(response) {
   let days = ["Thu", "Fri", "Sat", "Sun"];
 
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
+  forecast.forEach(function (forecastDay) {
     forecastHTML =
       forecastHTML +
       `
         <div class="col-2">
-          <div class="weather-forecast-date">${day}</div>
+          <div class="weather-forecast-date">${formatDay(forecastDay.dt)}</div>
           <img 
-            src="https://ssl.gstatic.com/onebox/weather/48/rain_s_cloudy.png" 
-            alt="rainy" 
+            src="http://openweathermap.org/img/wn/${
+              forecast.weather[0].icon
+            }@2x.png" 
+            alt="" 
             width="42"
           />
           <div class="weather-forecast-temperatures">
-            <span class="weather-forecast-temperature-max"> 18º 
+            <span class="weather-forecast-temperature-max"> ${
+              forecastDay.temp.max
+            }º 
             </span>
-            <span class="weather-forecast-temperature-min"> 12º 
+            <span class="weather-forecast-temperature-min"> ${
+              forecastDay.temp.min
+            }º 
             </span>
           </div>
         </div>
@@ -85,18 +114,18 @@ function getForecast(coordinates) {
   axios.get(apiUrl).then(displayForecast);
 }
 
-function handleSubmit(event) {
-  event.preventDefault();
-  let cityInput = document.querySelector("#city-input").value;
-  document.querySelector("#city1").innerHTML = "#city-input".value;
-  searchCity(cityInput);
-}
-
 function searchCity(city) {
   let apiKey = "ab6174be7b717732ef179b1d3f3555cf";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(showTemperature);
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInput = document.querySelector("#city-input").value;
+  document.querySelector("#city1").innerHTML = "#city-input".value;
+  searchCity(cityInput);
 }
 
 function chooseParis(event) {

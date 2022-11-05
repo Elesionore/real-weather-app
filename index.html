@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,28 +22,28 @@
     <div class="weather">
       <div class="container1">
         <div class="search-city fon">
-          <form class="search-city-form" id="search-form">
+          <form id="search-form" class="search-city-form">
             <div class="row">
               <div class="col-9">
                 <input
                   type="search"
                   placeholder="Enter city..."
                   class="form-control"
-                  autucomplete="off"
                   id="city-input"
+                  autocomplete="off"
                 />
               </div>
               <div class="col-3">
                 <input
                   type="submit"
                   value="Search"
-                  class="form-control btn btn-primary search"
+                  class="btn btn-primary search"
                 />
               </div>
             </div>
           </form>
           <br />
-          <div class="block-2 row">
+          <div class="block-3 row">
             <button type="button" class="col" id="paris-button">Paris</button>
             <button type="button" class="col" id="london-button">London</button>
             <button type="button" class="col" id="rome-button">Rome</button>

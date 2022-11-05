@@ -31,7 +31,7 @@ body {
 }
 
 .block-2.row {
-  width: 800px;
+  width: 560px;
   margin: 20px auto;
 }
 
@@ -83,7 +83,6 @@ h1,
 .wind,
 .min-temperature,
 .block-2 {
-  display-block;
   padding: 6px;
 }
 .search {

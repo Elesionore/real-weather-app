@@ -57,10 +57,12 @@ function displayForecast(response) {
         forecastHTML +
         `
         <div class="col-2">
-          <div class="weather-forecast-date">${formatDay(forecastDay.dt)}</div>
+          <div class="weather-forecast-date">${formatDate(
+            new Date(forecastDay.dt * 1000)
+          )}</div>
           <img 
             src="http://openweathermap.org/img/wn/${
-              forecast.weather[0].icon
+              forecastDay.weather[0].icon
             }@2x.png" 
             alt="" 
             width="42"
@@ -85,7 +87,7 @@ function displayForecast(response) {
 function getForecast(coordinates) {
   console.log(coordinates);
   let apiKey = "3fdc8cfbf2d6fa0116c9ae92d3df4f79";
-  let apiUrl = `https://api.openweathermap.org/data/3.0/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
 }
 
@@ -94,6 +96,13 @@ function searchCity(city) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(showTemperature);
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInput = document.querySelector("#city-input").value;
+  document.querySelector("#city1").innerHTML = "#city-input".value;
+  searchCity(cityInput);
 }
 
 function showTemperature(response) {
@@ -116,20 +125,6 @@ function showTemperature(response) {
   getForecast(response.data.coord);
 }
 
-let dateElement = document.querySelector("#current-date");
-let currentDate = new Date();
-dateElement.innerHTML = formatDate(currentDate);
-let timeElement = document.querySelector("#current-time");
-let currentTime = new Date();
-timeElement.innerHTML = formatHours(currentTime);
-
-function handleSubmit(event) {
-  event.preventDefault();
-  let cityInput = document.querySelector("#city-input").value;
-  document.querySelector("#city1").innerHTML = "#city-input".value;
-  searchCity(cityInput);
-}
-
 function convertToCelsius(event) {
   event.preventDefault();
   let temperatureElement = document.querySelector("#temperature");
@@ -140,7 +135,20 @@ function convertToFahrenheit(event) {
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = Math.round(celsiusTemperature * 1.8 + 32);
 }
+let celsiusTemperature = null;
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", convertToFahrenheit);
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", convertToCelsius);
 
+let dateElement = document.querySelector("#current-date");
+let currentDate = new Date();
+dateElement.innerHTML = formatDate(currentDate);
+let timeElement = document.querySelector("#current-time");
+let currentTime = new Date();
+timeElement.innerHTML = formatHours(currentTime);
+
+searchCity("Kyiv");
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", handleSubmit);
 let currentLocationButton = document.querySelector("#current-location-button");
@@ -154,8 +162,6 @@ function getCurrentPosition(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(searchLocation);
 }
-
-searchCity("Kyiv");
 
 function chooseParis(event) {
   event.preventDefault();

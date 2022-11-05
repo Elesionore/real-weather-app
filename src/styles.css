@@ -13,8 +13,8 @@ body {
   margin: 20px auto;
   border-radius: 10px;
   display: block;
-  max-width: 640px;
-  max-height: 1052px;
+  max-width: 600px;
+  max-height: 800px;
   border-radius: 10px;
   box-shadow: 5px 5px 5px 2px rgb(50, 92, 66);
 }
@@ -157,11 +157,15 @@ small {
 
 .weather-forecast-date {
   font-size: 16px;
-  opacity: 0.5;
+  color: darkgreen;
 }
 
 .weather-forecast-temperature-min {
-  opacity: 0.5;
+  color: darkcyan;
+}
+
+.weather-forecast-temperature-max {
+  color: sandybrown;
 }
 
 .weather-forecast-temperatures {
